@@ -44,11 +44,6 @@ OSStatus hotKeyReleasedHandler(EventHandlerCallRef nextHandler, EventRef anEvent
 }
 
 - (void)awakeFromNib {
-	// Configure your hotkey here, I'm lazy, you know.
-	// Find more keycodes in HIToolbox - Events.h
-	hotKeyCode = kVK_ANSI_KeypadClear; // this is the misterous key above 7 on the numpad
-	
-
 	on = [NSImage imageNamed:@"on"];
 	onHighlighted = [NSImage imageNamed:@"on-highlighted"];
 	off = [NSImage imageNamed:@"off"];
@@ -63,26 +58,6 @@ OSStatus hotKeyReleasedHandler(EventHandlerCallRef nextHandler, EventRef anEvent
 
 	toggleMuteItem = [self.statusMenu itemWithTag:1];
 	toggleMuteItem.state = NSOffState;
-
-
-	EventHotKeyRef myHotKeyRef;
-	EventHotKeyID myHotKeyID;
-
-	EventTypeSpec eventTypePressed;
-	eventTypePressed.eventClass = kEventClassKeyboard;
-	eventTypePressed.eventKind = kEventHotKeyPressed;
-
-	EventTypeSpec eventTypeReleased;
-	eventTypeReleased.eventClass = kEventClassKeyboard;
-	eventTypeReleased.eventKind = kEventHotKeyReleased;
-
-	InstallApplicationEventHandler(&hotKeyPressedHandler, 1, &eventTypePressed, NULL, NULL);
-	InstallApplicationEventHandler(&hotKeyReleasedHandler, 1, &eventTypeReleased, NULL, NULL);
-
-	myHotKeyID.signature = 'mhk1';
-	myHotKeyID.id = 1;
-
-	RegisterEventHotKey(hotKeyCode, 0, myHotKeyID, GetApplicationEventTarget(), 0, &myHotKeyRef);
 }
 
 - (IBAction)mute:(id)sender {

@@ -58,6 +58,8 @@ OSStatus hotKeyReleasedHandler(EventHandlerCallRef nextHandler, EventRef anEvent
 
 	toggleMuteItem = [self.statusMenu itemWithTag:1];
 	toggleMuteItem.state = NSOffState;
+    
+    [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
 }
 
 - (IBAction)mute:(id)sender {
